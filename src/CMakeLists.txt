@@ -4,10 +4,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 # Object library is used here because we need to use all of the src/*.c files
-# except main.c in unit tests
-# add_library(dummy OBJECT)
-# target_sources(dummy
-# 	)
+# except main.cpp in unit tests
+add_library(Controller OBJECT)
+target_sources(Controller
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Controller.cpp
+	)
 
 # target_include_directories(dummy
 # 	)
@@ -18,6 +19,7 @@ endif()
 add_executable(dummy)
 target_sources(dummy
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Controller.cpp
 	)
 
 target_link_libraries(dummy
