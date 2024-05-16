@@ -29,6 +29,12 @@ private:
 	Client::Ptr client;
 	std::unordered_map<std::string, Command> cmd_map;
 
+	int connect(const std::string& server);
+	int disconnect(const std::string&);
+	int publish(const std::string& topic_data);
+	int subscribe(const std::string& topic);
+	int unsubscribe(const std::string& topic);
+
 };
 
 #endif /* CONTROLLER_H */
