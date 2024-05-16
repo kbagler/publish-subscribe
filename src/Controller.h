@@ -7,13 +7,14 @@
 #include <unordered_map>
 
 #include "Client.h"
+#include "View.h"
 
 class Controller
 {
 public:
 	using Ptr = std::unique_ptr<Controller>;
 
-	Controller(Client::Ptr clnt);
+	Controller(Client::Ptr clnt, View::Ptr vw);
 
 	Controller(const Controller&) = delete;
 	Controller(Controller&&) = delete;
@@ -27,6 +28,7 @@ private:
 	using Command = std::function<int(const std::string&)>;
 
 	Client::Ptr client;
+	View::Ptr view;
 	std::unordered_map<std::string, Command> cmd_map;
 
 	int connect(const std::string& server);
@@ -34,6 +36,8 @@ private:
 	int publish(const std::string& topic_data);
 	int subscribe(const std::string& topic);
 	int unsubscribe(const std::string& topic);
+
+	int message_handler(const std::string& msg);
 
 };
 

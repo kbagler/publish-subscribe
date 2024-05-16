@@ -5,8 +5,9 @@
 /* ----------------------------------------------------------------------------
  * public
  * ------------------------------------------------------------------------- */
-Controller::Controller(Client::Ptr clnt)
-	: client(clnt)
+Controller::Controller(Client::Ptr clnt, View::Ptr vw)
+	: client(clnt),
+	  view(vw)
 {
 	cmd_map =
 	{
@@ -25,6 +26,9 @@ Controller::Controller(Client::Ptr clnt)
 		{"unsubscribe", [this](const std::string& topic) {
 				return unsubscribe(topic); }},
 	};
+
+	client->register_message_handler([this](const std::string& msg) {
+				return message_handler(msg); });
 }
 
 int Controller::put_command(const std::string& cmd, const std::string args)
@@ -79,5 +83,10 @@ int Controller::subscribe(const std::string& topic)
 int Controller::unsubscribe(const std::string& topic)
 {
 	return client->unsubscribe(topic);
+}
+
+int Controller::message_handler(const std::string& msg)
+{
+	return view->print_message(msg);
 }
 

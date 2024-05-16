@@ -2,12 +2,14 @@
 #define CLIENT_H
 
 #include <memory>
+#include <functional>
 #include <string>
 
 class Client
 {
 public:
 	using Ptr = std::shared_ptr<Client>;
+	using MessageHandler = std::function<int(const std::string&)>;
 
 	Client() { }
 	Client(const Client&) = delete;
@@ -22,7 +24,12 @@ public:
 	virtual int subscribe(const std::string& topic) = 0;
 	virtual int unsubscribe(const std::string& topic) = 0;
 
-private:
+	void register_message_handler(MessageHandler handler);
+
+protected:
+	MessageHandler message_handler = nullptr;
+
+	int execute_handler(const std::string& msg);
 
 };
 

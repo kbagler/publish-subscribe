@@ -17,6 +17,11 @@ public:
 	MOCK_METHOD(int, subscribe, (const std::string& topic), (override));
 	MOCK_METHOD(int, unsubscribe, (const std::string& topic), (override));
 
+	int receive(const std::string& msg)
+	{
+		return execute_handler(msg);
+	}
+
 private:
 
 };

@@ -1,16 +1,19 @@
 #include "gmock/gmock.h"
 #include <gtest/gtest.h>
+#include <memory>
 
 #include "ControllerTest.h"
 #include "ClientMock.h"
+#include "ViewMock.h"
 
 using namespace testing;
 
 void ControllerTest::SetUp()
 {
 	client = std::make_shared<ClientMock>();
+	view = std::make_shared<ViewMock>();
 
-	controller = std::make_unique<Controller>(client);
+	controller = std::make_unique<Controller>(client, view);
 }
 
 TEST_F(ControllerTest, RequestedCommandIsExecutedByClient)
@@ -56,5 +59,12 @@ TEST_F(ControllerTest, PublishingMultipleWordsInDataIsOk)
 TEST_F(ControllerTest, PublishingEmptyTopicReturnsError)
 {
 	EXPECT_EQ(controller->put_command("publish", ""), -1);
+}
+
+TEST_F(ControllerTest, DataReceivedFromClientIsConsumed)
+{
+	EXPECT_CALL(*view, print_message("topic data")).Times(1);
+
+	EXPECT_EQ(client->receive("topic data"), 0);
 }
 

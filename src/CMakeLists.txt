@@ -8,6 +8,7 @@ endif()
 add_library(Controller OBJECT)
 target_sources(Controller
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Controller.cpp
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Client.cpp
 	)
 
 # target_include_directories(dummy
@@ -20,6 +21,7 @@ add_executable(dummy)
 target_sources(dummy
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Controller.cpp
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Client.cpp
 	)
 
 target_link_libraries(dummy
