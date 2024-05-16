@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(PREFERRED_VERSION_GOOGLETEST release-1.12.0)
 
 # Download, unpack, and build googletest at configure time
-set(BUILD_GMOCK OFF)
+set(BUILD_GMOCK ON)
 set(INSTALL_GTEST OFF)
 message(STATUS "Googletest ${PREFERRED_VERSION_GOOGLETEST} is downloaded and used in the build")
 include(FetchContent)
@@ -26,12 +26,13 @@ add_subdirectory(
 	)
 
 include_directories(
-	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/src
+	${CMAKE_CURRENT_SOURCE_DIR}/mock
 	${CMAKE_CURRENT_BINARY_DIR}/include
 	)
 
 add_executable(publish-subscribe-test
-	${CMAKE_CURRENT_SOURCE_DIR}/src/test.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/ControllerTest.cpp
 	)
 
 
@@ -40,6 +41,8 @@ add_executable(publish-subscribe-test
 
 target_link_libraries(publish-subscribe-test
 	GTest::gtest_main
+	GTest::gmock_main
+	Controller
 	)
 
 include(GoogleTest)
