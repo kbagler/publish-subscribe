@@ -33,6 +33,8 @@ include_directories(
 
 add_executable(publish-subscribe-test
 	${CMAKE_CURRENT_SOURCE_DIR}/src/ControllerTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/MessageTest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/MessageDispatcherTest.cpp
 	)
 
 

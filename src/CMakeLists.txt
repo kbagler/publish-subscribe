@@ -9,6 +9,8 @@ add_library(Controller OBJECT)
 target_sources(Controller
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Controller.cpp
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Client.cpp
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Message.cpp
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/MessageDispatcher.cpp
 	)
 
 # target_include_directories(dummy
