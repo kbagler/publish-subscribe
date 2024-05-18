@@ -1,3 +1,5 @@
+find_package(Threads)
+
 # Object library is used here because we need to use all of the src/*.c files
 # except main.cpp in unit tests
 add_library(Server OBJECT)
@@ -18,6 +20,8 @@ target_sources(server
 	)
 
 target_link_libraries(server
+	${CMAKE_THREAD_LIBS_INIT}
+	Server
 	)
 
 # target_compile_definitions(dummy

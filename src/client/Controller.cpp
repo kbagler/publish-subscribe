@@ -39,7 +39,7 @@ Controller::Controller(Client::Ptr clnt, Input::Ptr in, View::Ptr vw)
 /* ----------------------------------------------------------------------------
  * private
  * ------------------------------------------------------------------------- */
-int Controller::put_command(const std::string& cmd, const std::string args)
+int Controller::put_command(const std::string& cmd, const std::string& args)
 {
 	auto found = cmd_map.find(cmd);
 	if (found == cmd_map.end()) {

@@ -31,7 +31,7 @@ private:
 	View::Ptr view;
 	std::unordered_map<std::string, Command> cmd_map;
 
-	int put_command(const std::string& cmd, const std::string args);
+	int put_command(const std::string& cmd, const std::string& args);
 
 	int connect(const std::string& server);
 	int disconnect(const std::string&);
