@@ -26,7 +26,8 @@ add_subdirectory(
 	)
 
 include_directories(
-	${CMAKE_SOURCE_DIR}/src
+	${CMAKE_SOURCE_DIR}/src/client
+	${CMAKE_SOURCE_DIR}/src/server
 	${CMAKE_CURRENT_SOURCE_DIR}/mock
 	${CMAKE_CURRENT_BINARY_DIR}/include
 	)
@@ -44,7 +45,8 @@ add_executable(publish-subscribe-test
 target_link_libraries(publish-subscribe-test
 	GTest::gtest_main
 	GTest::gmock_main
-	Controller
+	Client
+	Server
 	)
 
 include(GoogleTest)
