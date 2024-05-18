@@ -31,6 +31,12 @@
 *.out
 *.app
 
+# Build directory
+build/
+
+# Ctags
+tags
+
 # Vim temporary files
 *.sw[a-z]
 
