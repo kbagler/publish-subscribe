@@ -6,6 +6,7 @@
 
 #include "Controller.h"
 #include "ClientMock.h"
+#include "InputMock.h"
 #include "ViewMock.h"
 
 class ControllerTest : public ::testing::Test
@@ -18,6 +19,7 @@ public:
 
 protected:
 	std::shared_ptr<ClientMock> client;
+	std::shared_ptr<InputMock> input;
 	std::shared_ptr<ViewMock> view;
 	Controller::Ptr controller;
 

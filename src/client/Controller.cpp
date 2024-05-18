@@ -1,12 +1,14 @@
 #include "Controller.h"
 
 #include <sstream>
+#include <algorithm>
 
 /* ----------------------------------------------------------------------------
  * public
  * ------------------------------------------------------------------------- */
-Controller::Controller(Client::Ptr clnt, View::Ptr vw)
+Controller::Controller(Client::Ptr clnt, Input::Ptr in, View::Ptr vw)
 	: client(clnt),
+	  input(in),
 	  view(vw)
 {
 	cmd_map =
@@ -27,10 +29,16 @@ Controller::Controller(Client::Ptr clnt, View::Ptr vw)
 				return unsubscribe(topic); }},
 	};
 
+	input->register_command_input([this](const std::string& cmd) {
+				return command_handler(cmd); });
+
 	client->register_message_handler([this](const std::string& msg) {
 				return message_handler(msg); });
 }
 
+/* ----------------------------------------------------------------------------
+ * private
+ * ------------------------------------------------------------------------- */
 int Controller::put_command(const std::string& cmd, const std::string args)
 {
 	auto found = cmd_map.find(cmd);
@@ -43,9 +51,6 @@ int Controller::put_command(const std::string& cmd, const std::string args)
 	return ret;
 }
 
-/* ----------------------------------------------------------------------------
- * private
- * ------------------------------------------------------------------------- */
 int Controller::connect(const std::string& server)
 {
 	return client->connect(server);
@@ -83,6 +88,20 @@ int Controller::subscribe(const std::string& topic)
 int Controller::unsubscribe(const std::string& topic)
 {
 	return client->unsubscribe(topic);
+}
+
+int Controller::command_handler(const std::string& cmd)
+{
+	std::istringstream iss(cmd);
+	std::string command, args;
+
+	iss >> command >> std::ws;
+	std::getline(iss, args);
+
+	/* convert input commands to lower case */
+	std::transform(command.cbegin(), command.cend(), command.begin(), ::tolower);
+
+	return put_command(command, args);
 }
 
 int Controller::message_handler(const std::string& msg)
