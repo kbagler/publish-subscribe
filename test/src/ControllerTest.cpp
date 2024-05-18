@@ -38,8 +38,9 @@ TEST_F(ControllerTest, CommandFromInputIsExecutedByClient)
 
 TEST_F(ControllerTest, PuttingUnknownCommandReturnsError)
 {
-	int err = input->input("boo topic data");
-	EXPECT_EQ(err, -1);
+	EXPECT_CALL(*view, print_message("Unknown command: boo")).Times(1);
+
+	EXPECT_EQ(input->input("boo topic data"), -1);
 }
 
 TEST_F(ControllerTest, PublishingEmptyDataIsOk)

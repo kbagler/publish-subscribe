@@ -23,6 +23,8 @@ public:
 		command_handler = handler;
 	}
 
+	int input(const std::string& cmd);
+
 protected:
 	CommandHandler command_handler = nullptr;
 

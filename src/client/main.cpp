@@ -1,15 +1,19 @@
-#include <iostream>
+#include <memory>
+
+#include "Controller.h"
+#include "ClientConsoleFake.h"
+#include "InputConsole.h"
+#include "ViewConsole.h"
 
 int main(int argc, char *argv[])
 {
-	std::string command;
+	Client::Ptr client = std::make_shared<ClientConsoleFake>();
+	InputConsole::Ptr input = std::make_shared<InputConsole>();
+	View::Ptr view = std::make_shared<ViewConsole>();
 
-    while (1){
-        std::cout << "prompt> ";
-        std::getline(std::cin, command);
-        std::cout << command << std::endl;
-        if (command.compare("exit") == 0) break;
-    }
+	Controller::Ptr controller = std::make_unique<Controller>(client, input, view);
+
+	input->run();
 
 	return 0;
 }

@@ -4,10 +4,8 @@ add_library(Client OBJECT)
 target_sources(Client
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Controller.cpp
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Client.cpp
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Input.cpp
 	)
-
-# target_include_directories(dummy
-# 	)
 
 # target_link_libraries(dummy
 # 	)
@@ -15,11 +13,15 @@ target_sources(Client
 add_executable(client)
 target_sources(client
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Controller.cpp
-	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Client.cpp
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/InputConsole.cpp
 	)
 
+# target_include_directories(client
+# 	)
+
 target_link_libraries(client
+	Client
+	pthread
 	)
 
 # target_compile_definitions(dummy
