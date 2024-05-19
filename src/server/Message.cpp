@@ -15,6 +15,6 @@ ClientCommand parse_client_command(const std::string& msg)
 
 std::string compose_server_response(const ServerResponse& msg)
 {
-	return msg.topic + " " + msg.data;
+	return msg.topic + " " + msg.data + "\n";
 }
 

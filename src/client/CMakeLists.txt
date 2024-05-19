@@ -6,6 +6,7 @@ add_library(Client OBJECT)
 target_sources(Client
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Controller.cpp
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Client.cpp
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Client_TCP.cpp
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Input.cpp
 	)
 

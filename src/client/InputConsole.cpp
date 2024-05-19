@@ -10,10 +10,11 @@ void InputConsole::run()
 		while (1) {
 			std::cout << ">>> ";
 			std::getline(std::cin, command);
-			input(command);
 
 			if (command.compare("exit") == 0)
 				break;
+
+			input(command);
 		}
 	});
 
