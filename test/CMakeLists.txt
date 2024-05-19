@@ -89,7 +89,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		--directory ${CMAKE_BINARY_DIR}
 		--output-file publish-subscribe.coverage.info
 		COMMAND lcov
-		--extract publish-subscribe.coverage.info ${CMAKE_SOURCE_DIR}/src/*
+		--extract publish-subscribe.coverage.info
+		${CMAKE_SOURCE_DIR}/src/client/*
+		${CMAKE_SOURCE_DIR}/src/server/*
 		-o publish-subscribe.coverage.info
 		COMMAND lcov
 		--add-tracefile publish-subscribe.coverage.info

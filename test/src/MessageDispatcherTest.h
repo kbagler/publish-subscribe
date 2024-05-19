@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "MessageDispatcher.h"
+#include "ReaderMock.h"
 #include "SenderMock.h"
 
 class MessageDispatcherTest : public ::testing::Test
@@ -15,6 +16,7 @@ public:
 	void SetUp();
 
 protected:
+	std::shared_ptr<ReaderMock> reader;
 	std::shared_ptr<SenderMock> sender;
 	MessageDispatcher::Ptr dispatcher;
 
