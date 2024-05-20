@@ -21,6 +21,7 @@ public:
 
 	int subscribe(const std::string& topic, unsigned int client_id);
 	int unsubscribe(const std::string& topic, unsigned int client_id);
+	int unsubscribe(unsigned int client_id);
 	int dispatch(const ServerResponse& msg);
 
 private:

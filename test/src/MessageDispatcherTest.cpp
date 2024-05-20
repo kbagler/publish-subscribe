@@ -94,3 +94,21 @@ TEST_F(MessageDispatcherTest, MessageReceivedByReaderIsForwardedToClients)
 	reader->input("publish topic data", 2);
 }
 
+TEST_F(MessageDispatcherTest, SenderCanDisconnectClients)
+{
+	dispatcher->subscribe("topic", 0);
+	dispatcher->subscribe("topic", 1);
+	dispatcher->subscribe("topic", 2);
+	dispatcher->subscribe("topic", 3);
+	dispatcher->subscribe("topic", 4);
+
+	sender->disconnect(3);
+
+	EXPECT_CALL(*sender, send("topic data", 0)).Times(1);
+	EXPECT_CALL(*sender, send("topic data", 1)).Times(1);
+	EXPECT_CALL(*sender, send("topic data", 2)).Times(1);
+	EXPECT_CALL(*sender, send("topic data", 3)).Times(0);
+	EXPECT_CALL(*sender, send("topic data", 4)).Times(1);
+	dispatcher->dispatch({"topic", "data"});
+}
+

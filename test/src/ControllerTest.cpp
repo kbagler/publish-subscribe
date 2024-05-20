@@ -38,7 +38,7 @@ TEST_F(ControllerTest, CommandFromInputIsExecutedByClient)
 
 TEST_F(ControllerTest, PuttingUnknownCommandReturnsError)
 {
-	EXPECT_CALL(*view, print_message("Unknown command: boo")).Times(1);
+	EXPECT_CALL(*view, print_error("unknown command: boo")).Times(1);
 
 	EXPECT_EQ(input->input("boo topic data"), -1);
 }

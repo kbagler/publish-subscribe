@@ -67,6 +67,8 @@ void Session::do_read()
 	auto self(shared_from_this());
 	asio::async_read_until(socket_, buffer_, "\n",
 			[this, self](std::error_code ec, std::size_t length) {
+				unsigned int port = socket_.remote_endpoint().port();
+
 				if (!ec) {
 					asio::streambuf::const_buffers_type bufs = buffer_.data();
 					rcvd_line_ = std::string(
@@ -75,12 +77,11 @@ void Session::do_read()
 
 					buffer_.consume(buffer_.size());
 					std::cout << "received: " << rcvd_line_
-					<< " from client " << socket_.remote_endpoint().port()
-					<< std::endl;
+						<< " from client " << port << std::endl;
 
-					receive_callback(rcvd_line_, socket_.remote_endpoint().port());
+					receive_callback(rcvd_line_, port);
 				} else if (ec == asio::error::eof) {
-					std::cout << "client " << socket_.remote_endpoint().port()
+					std::cout << "client " << port
 						<< " closed connection" << std::endl;
 				}
 

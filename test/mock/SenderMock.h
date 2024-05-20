@@ -13,6 +13,11 @@ public:
 
 	MOCK_METHOD(int, send, (const std::string& msg, int client_id), (override));
 
+	void disconnect(int client_id)
+	{
+		disconnect_handler(client_id);
+	}
+
 private:
 
 };

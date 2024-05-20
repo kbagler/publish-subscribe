@@ -33,6 +33,11 @@ MessageDispatcher::MessageDispatcher(Reader::Ptr rdr, Sender::Ptr sndr)
 			[this](const std::string& request, unsigned int client_id) {
 				return this->read_request(request, client_id);
 			});
+
+	sender->register_disconnect_handler(
+			[this](unsigned int client_id) {
+				return this->unsubscribe(client_id);
+			});
 }
 
 /* ----------------------------------------------------------------------------
@@ -83,6 +88,19 @@ int MessageDispatcher::unsubscribe(const std::string& topic, unsigned int client
 			subscriptions.erase(it);
 			break;
 		}
+	}
+
+	return 0;
+}
+
+int MessageDispatcher::unsubscribe(unsigned int client_id)
+{
+	for (auto it = subscriptions.begin(); it != subscriptions.end(); )
+	{
+		if (it->second == client_id)
+			it = subscriptions.erase(it);
+		else
+			++it;
 	}
 
 	return 0;
