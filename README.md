@@ -10,6 +10,7 @@
 * [Code Coverage](#code-coverage)
     * [Dependencies](#dependencies-1)
 * [Known bugs](#known-bugs)
+* [UML Class Diagram](#uml-class-diagram)
 
 ## Build
 ### Dependencies
@@ -67,7 +68,11 @@ Coverage information in text format is present in `coverage/txt/` directory.
 ## Known bugs
   - If a client disconnects from the server without unsubscribing from all of
 the topics it was subscribed to, the next 'publish' request on that topic
-crashes the server. The callback for unsubsribing the disconnecting clien from
+crashes the server. The callback for unsubscribing the disconnecting client from
 all of the topics is ready to use in the code. I have not managed to find yet
 how to use this callback in asio.
 
+## UML Class Diagram
+The following UML diagram could help in understanging the source code:
+
+![UML diagram](publish-subscribe-p3.drawio.png?raw=true "UML Class Diagram")
