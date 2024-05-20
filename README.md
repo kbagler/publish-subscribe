@@ -8,11 +8,14 @@
     * [Building](#building)
 * [Running Unit Tests](#running-unit-tests)
 * [Code Coverage](#code-coverage)
+    * [Dependencies](#dependencies-1)
+* [Known bugs](#known-bugs)
 
 ## Build
 ### Dependencies
   - CMake 3.16.3
   - C++17 compatible compiler (build tested with g++ 9.4.0)
+  - asio 1.12.2
 
 ### Running cmake
 Navigate to the root of the project directory and then issue the following commands:
@@ -60,4 +63,11 @@ After running `make coverage`, the Code Coverage information can be found in
 `coverage/` directory. Coverage information in user friendly .html format is
 available by opening `coverage/html/index.html` file in your web browser.
 Coverage information in text format is present in `coverage/txt/` directory.
+
+## Known bugs
+  - If a client disconnects from the server without unsubscribing from all of
+the topics it was subscribed to, the next 'publish' request on that topic
+crashes the server. The callback for unsubsribing the disconnecting clien from
+all of the topics is ready to use in the code. I have not managed to find yet
+how to use this callback in asio.
 
