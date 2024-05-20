@@ -1,5 +1,6 @@
 #include <asio.hpp>
 #include <memory>
+#include <iostream>
 
 #include "Server_TCP.h"
 #include "MessageDispatcher.h"
