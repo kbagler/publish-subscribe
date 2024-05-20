@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <mutex>
 
 #include "Reader.h"
 #include "Sender.h"
@@ -34,6 +35,7 @@ private:
 	std::unordered_multimap<std::string, int> subscriptions;
 	Reader::Ptr reader;
 	Sender::Ptr sender;
+	std::mutex command_lock;
 
 };
 

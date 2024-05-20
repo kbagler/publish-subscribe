@@ -17,6 +17,7 @@ add_executable(client)
 target_sources(client
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/InputConsole.cpp
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ViewConsole.cpp
 	)
 
 # target_include_directories(client

@@ -61,6 +61,8 @@ int MessageDispatcher::handle_request(const std::string& cmd,
 	}
 
 	auto command = std::get<Command>(*found);
+
+	std::lock_guard<std::mutex> lock(command_lock);
 	int ret = command(topic_data, client_id);
 
 	return ret;
