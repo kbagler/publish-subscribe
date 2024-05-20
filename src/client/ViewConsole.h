@@ -16,6 +16,7 @@ public:
 	virtual ~ViewConsole() { }
 
 	virtual int print_message(const std::string& msg) override;
+	virtual int print_error(const std::string& msg) override;
 
 private:
 	std::mutex out_lock;

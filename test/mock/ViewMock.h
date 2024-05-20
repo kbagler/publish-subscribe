@@ -12,6 +12,7 @@ public:
 	virtual ~ViewMock() { }
 
 	MOCK_METHOD(int, print_message, (const std::string&), (override));
+	MOCK_METHOD(int, print_error, (const std::string&), (override));
 
 private:
 

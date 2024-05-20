@@ -17,6 +17,7 @@ public:
 	virtual ~View() { }
 
 	virtual int print_message(const std::string& msg) = 0;
+	virtual int print_error(const std::string& msg) = 0;
 
 private:
 

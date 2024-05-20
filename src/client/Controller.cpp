@@ -43,7 +43,7 @@ int Controller::put_command(const std::string& cmd, const std::string& args)
 {
 	auto found = cmd_map.find(cmd);
 	if (found == cmd_map.end()) {
-		view->print_message("Unknown command: " + cmd);
+		view->print_error("unknown command: " + cmd);
 		return -1;
 	}
 

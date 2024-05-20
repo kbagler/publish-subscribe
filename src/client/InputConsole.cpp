@@ -11,6 +11,9 @@ void InputConsole::run()
 			std::cout << ">>> ";
 			std::getline(std::cin, command);
 
+			if (command.size() == 0)
+				continue;
+
 			if (command.compare("exit") == 0)
 				break;
 
