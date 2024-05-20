@@ -95,7 +95,7 @@ public:
 		if (client != clients_map.end()) {
 			std::cout << "sending :" << msg << " to client " << client_id << std::endl;
 			auto session = std::get<Session::Ptr>(*client);
-			session->write(msg);
+			session->write(msg + "\n");
 		}
 
 		return 0;
