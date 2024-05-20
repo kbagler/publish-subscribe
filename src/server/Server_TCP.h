@@ -4,6 +4,7 @@
 #include "Reader.h"
 #include "Sender.h"
 
+#include <asio/error_code.hpp>
 #include <asio/thread.hpp>
 #include <cstdlib>
 #include <iostream>
@@ -37,7 +38,6 @@ public:
 		asio::async_write(socket_, asio::buffer(response.data(), response.size()),
 				[this, self](std::error_code ec, std::size_t /*length*/) {
 					if (!ec) {
-						do_read();
 					}
 				});
 	}
@@ -55,13 +55,15 @@ private:
 								asio::buffers_begin(bufs) + bufs.size() - 1);
 
 						buffer_.consume(buffer_.size());
+						std::cout << "received: " << rcvd_line_
+						<< " from client " << socket_.remote_endpoint().port()
+						<< std::endl;
+
+						receive_callback(rcvd_line_, socket_.remote_endpoint().port());
+					} else if (ec == asio::error::eof) {
+						std::cout << "client " << socket_.remote_endpoint().port()
+							<< " closed connection" << std::endl;
 					}
-
-				std::cout << "received: " << rcvd_line_
-				<< " from client " << socket_.remote_endpoint().port()
-				<< std::endl;
-
-				receive_callback(rcvd_line_, socket_.remote_endpoint().port());
 
 				do_read();
 			});

@@ -4,6 +4,7 @@
 #include "View.h"
 
 #include <iostream>
+#include <sstream>
 
 class ViewConsole : public View
 {
@@ -17,7 +18,14 @@ public:
 
 	virtual int print_message(const std::string& msg)
 	{
-		std::cout << msg << std::endl;
+		std::istringstream iss(msg);
+		std::string topic, data;
+
+		iss >> topic >> std::ws;
+		std::getline(iss, data);
+
+		std::cout << "[Message] Topic: " << topic
+			<< " Data: " << data << std::endl;
 		return 0;
 	}
 
