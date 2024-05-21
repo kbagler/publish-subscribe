@@ -12,8 +12,7 @@ int ViewConsole::print_message(const std::string& msg)
 	std::getline(iss, data);
 
 	std::lock_guard<std::mutex> lock(out_lock);
-	std::cout << "[Message] Topic: " << topic
-		<< " Data: " << data << std::endl;
+	std::cout << "[Message] Topic: " << topic << " Data: " << data << std::endl;
 
 	return 0;
 }

@@ -1,5 +1,9 @@
 # publish-subscribe
 
+Disclaimer: this branch contains bugfixes made after submitting the test
+assignment. The submitted version of the assignment is available in 'main'
+branch.
+
 # Table of Contents
 
 * [Build](#build)
@@ -70,7 +74,9 @@ Coverage information in text format is present in `coverage/txt/` directory.
 the topics it was subscribed to, the next 'publish' request on that topic
 crashes the server. The callback for unsubscribing the disconnecting client from
 all of the topics is ready to use in the code. I have not managed to find yet
-how to use this callback in asio.
+how to use this callback in asio.  
+(UPD: this one is fixed after submitting the
+assignment).
 
 ## UML Class Diagram
 The following UML diagram could help in understanging the source code:

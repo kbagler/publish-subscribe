@@ -35,10 +35,20 @@ void Server_TCP::do_accept()
 					<< ":" << port_connected << std::endl;
 
 				Session::Ptr session;
-				session = std::make_shared<Session>(std::move(socket),
-						[this](const std::string& cmd, unsigned int port) {
-							return receive(cmd, port);
-						});
+				Session::ReceiveCallback rcv_cb =
+					[this](const std::string& cmd, unsigned int port) {
+						return receive(cmd, port);
+					};
+				Session::DisconnectCallback dsconn_cb =
+					[this](unsigned int port) {
+						clients_map.erase(port);
+						return disconnect_handler(port);
+					};
+				session = std::make_shared<Session>(
+						std::move(socket),
+						rcv_cb,
+						dsconn_cb);
+
 				clients_map.insert({port_connected, session});
 				session->start();
 			}
@@ -83,6 +93,7 @@ void Session::do_read()
 				} else if (ec == asio::error::eof) {
 					std::cout << "client " << port
 						<< " closed connection" << std::endl;
+					disconnect_callback(port);
 				}
 
 			do_read();

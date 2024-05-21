@@ -13,15 +13,17 @@
 
 using asio::ip::tcp;
 
-using ReceiveCallback = std::function<int(const std::string&, unsigned int)>;
-
 class Session : public std::enable_shared_from_this<Session>
 {
 public:
 	using Ptr = std::shared_ptr<Session>;
+	using ReceiveCallback = std::function<int(const std::string&, unsigned int)>;
+	using DisconnectCallback = std::function<int(unsigned int)>;
 
-	Session(tcp::socket socket, ReceiveCallback rcv)
-		: socket_(std::move(socket)), receive_callback(rcv) { }
+	Session(tcp::socket socket, ReceiveCallback rcv, DisconnectCallback dsconn)
+		: socket_(std::move(socket)),
+		  receive_callback(rcv),
+		  disconnect_callback(dsconn) { }
 
 	void start();
 	void write(std::string response);
@@ -30,6 +32,7 @@ private:
 	void do_read();
 
 	ReceiveCallback receive_callback;
+	DisconnectCallback disconnect_callback;
 	tcp::socket socket_;
 	asio::streambuf buffer_;
 	std::string rcvd_line_;

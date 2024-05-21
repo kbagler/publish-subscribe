@@ -83,9 +83,9 @@ void Client_TCP::do_read()
 							asio::buffers_begin(bufs) + bufs.size() - 1);
 
 					buffer.consume(buffer.size());
-				}
 
-			execute_handler(rcvd_line);
+					execute_handler(rcvd_line);
+				}
 
 			do_read();
 		});
