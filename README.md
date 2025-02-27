@@ -79,6 +79,6 @@ how to use this callback in asio.
 assignment).
 
 ## UML Class Diagram
-The following UML diagram could help in understanging the source code:
+The following UML diagram could help in understanding the source code:
 
 ![UML diagram](publish-subscribe-p3.drawio.png?raw=true "UML Class Diagram")
